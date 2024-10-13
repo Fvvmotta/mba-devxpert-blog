@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace MbaDevXpertBlog.Data.Models
 {
-    public class Comentario : Entitidade
+    public class Comentario : Entity
     {
         public int PostId { get; set; }
         public int AutorId { get; set; }
-        public int Conteudo { get; set; }
+        public string Conteudo { get; set; }
+        public DateTime DateCreated { get; set; }
+
+        /* EF Relations */
+        public Autor Autor { get; set; }
     }
 }

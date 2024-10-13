@@ -1,15 +1,15 @@
-﻿using Microsoft.CodeAnalysis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MbaDevXpertBlog.Data.Models
+﻿namespace MbaDevXpertBlog.Data.Models
 {
-    public class Autor : Entitidade
+    public class Autor : Entity
     {
-        public string Nome { get; set; }
+        public Guid IdentityUserId { get; set; }
+        public string? Nome { get; set; }
+        public string? Email { get; set; }
+        public DateTime DateCreated { get; set; }
+
+        /* EF Relations */
+        public IEnumerable<Post> Posts { get; set; }
+        public IEnumerable<Comentario> Comentarios { get; set; }
     }
 }
 

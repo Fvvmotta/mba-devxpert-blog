@@ -1,11 +1,21 @@
+using MbaDevXpertBlog.Api.Configuration;
+using MbaDevXpertBlog.Data.Context;
+using MbaDevXpertBlog.Data.Interfaces;
+using MbaDevXpertBlog.Data.Repository;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder
+    .AddApiConfig()
+    .AddCorsConfig()
+    .AddSwaggerConfig()
+    .AddDbContextConfig()
+    .AddDependencyInjectionConfig()
+    .AddIdentityConfig();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
@@ -14,9 +24,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("Development");
 }
-
+else
+{
+    app.UseCors("Production");
+}
 app.UseHttpsRedirection();
+app.UseAuthentication();
 
 app.UseAuthorization();
 

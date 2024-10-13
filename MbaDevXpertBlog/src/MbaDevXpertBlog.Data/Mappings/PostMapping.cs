@@ -12,7 +12,10 @@ namespace MbaDevXpertBlog.Data.Mappings
             builder.Property(p => p.Conteudo)
                 .IsRequired()
                 .HasColumnType("varchar(2000)");
-            builder.ToTable("Comentarios");
+            builder.ToTable("Posts");
+
+            builder.HasOne(c => c.Autor)
+                .WithMany(e => e.Posts);
         }
     }
 }

@@ -1,4 +1,8 @@
-using MbaDevXpertBlob.Mvc.Models;
+using AutoMapper;
+using MbaDevXpertBlog.Data.Context;
+using MbaDevXpertBlog.Data.Interfaces;
+using MbaDevXpertBlog.Mvc.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,16 +10,28 @@ namespace MbaDevXpertBlob.Mvc.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IPostRepository _postRepository;
+        private readonly IAutorRepository _autorRepository;
+        private readonly IMapper _mapper;
+        private readonly MbaDevXpertBlogDbContext _context;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
+        public HomeController(ILogger<HomeController> logger, 
+                            IPostRepository postRepository,
+                               IAutorRepository autorRepository,
+                               IMapper mapper,
+                               MbaDevXpertBlogDbContext context)
+        { 
             _logger = logger;
+            _postRepository = postRepository;
+            _autorRepository = autorRepository;
+            _mapper = mapper;
+            _context = context;
         }
-
-        public IActionResult Index()
+        [AllowAnonymous]
+        public async Task<ActionResult> Index()
         {
-            return View();
+            return View(_mapper.Map<IEnumerable<PostViewModel>>(await _postRepository.GetAllPostAuthor()));
         }
 
         public IActionResult Privacy()

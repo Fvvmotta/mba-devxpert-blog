@@ -1,4 +1,4 @@
-namespace MbaDevXpertBlob.Mvc.Models
+namespace MbaDevXpertBlog.Mvc.ViewModels
 {
     public class ErrorViewModel
     {

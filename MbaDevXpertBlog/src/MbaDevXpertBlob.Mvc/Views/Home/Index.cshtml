@@ -1,8 +1,44 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<MbaDevXpertBlog.Mvc.ViewModels.PostViewModel>
 
-<div class="text-center">
-    <h1 class="display-4"><i class="fa-solid fa-code"></i>Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    ViewData["Title"] = "Blog Posts";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+<h1>Blog</h1>
+
+<partial name="_ReturnMessages" />
+
+<hr />
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            @{
+                int counter = 0;
+            }
+
+            @foreach (var post in Model)
+            {
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100" style="width: 100%; height: 100%;">
+                        <div class="card-body">
+                            <h3 class="card-title"><b>@post.Titulo</b></h3>
+                            <p class="card-text">
+                                <b>Autor: </b>@post.Autor.Nome<br />
+                                <b>Criado Em: </b>@post.DateCreated>
+                            </p>
+                            <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">@post.Conteudo</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="@Url.Action("Details", "posts", new { id = post.Id })" class="btn btn-primary">Leia Mais</a>
+                        </div>
+                    </div>
+                </div>
+                counter++;
+                if (counter % 4 == 0)
+                {
+                    @:</div><div class="row">
+                }
+            }
+        </div>
+    </div>
 </div>

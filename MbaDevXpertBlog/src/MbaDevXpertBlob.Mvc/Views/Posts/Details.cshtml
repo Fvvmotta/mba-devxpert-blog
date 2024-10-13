@@ -1,0 +1,109 @@
+﻿@model MbaDevXpertBlog.Mvc.ViewModels.PostDetailsViewModel
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "Detalhes";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+
+<h1>Detalhes do Post</h1>
+<div class="card">
+    <div class="card-body">
+        <h4>Post</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Autor
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PostViewModel.Autor.Nome)
+            </dd>
+            <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PostViewModel.Titulo)
+            </dt>
+            <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.PostViewModel.Titulo)
+            </dd>
+            <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PostViewModel.Conteudo)
+            </dt>
+            <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.PostViewModel.Conteudo)
+            </dd>
+            <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.PostViewModel.DateCreated)
+            </dt>
+            <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.PostViewModel.DateCreated)
+            </dd>
+        </dl>
+    </div>
+    <div class="text-right">
+       
+        @{
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+        @if (User.IsInRole("Admin") || userId == Model?.PostViewModel?.Autor?.IdentityUserId.ToString())
+        {
+            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.PostViewModel.Id">Editar</a>
+        }
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="btn btn-primary" data-toggle="modal" data-target="#commentModal">Comentar</a>
+            <a class="btn btn-info" asp-action="Index">Voltar</a>
+        }
+        else
+        {
+            <a class="btn btn-info" asp-controller="Home" asp-action="Index">Voltar</a>
+        }
+        
+    </div>
+    <div class="card-footer">
+        <h5>Comentários</h5>
+        <hr />
+        @if (Model.ComentarioViewModel != null && Model.ComentarioViewModel.Any())
+        {
+            foreach (var comentario in Model.ComentarioViewModel)
+            {
+                <div class="border p-2 mb-2">
+                    <p><strong>@comentario.Autor.Nome:</strong></p>
+                    <p>@comentario.Conteudo</p>
+                    @*@<p><small>@comentario.DateCreated.ToString("dd/MM/yyyy HH:mm")</small></p>*@
+                </div>
+            }
+        }
+        else
+        {
+            <p>Não há comentários ainda.</p>
+        }
+    </div>
+</div>
+
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">Adicionar Comentário</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Comentarios" asp-action="Create">
+                    <div class="form-group">
+                        <label for="commentText">Comentar:</label>
+                        <textarea class="form-control" id="commentText" name="conteudo" rows="4"></textarea>
+                    </div>
+                    <input type="hidden" name="postId" value="@Model.PostViewModel.Id" />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+

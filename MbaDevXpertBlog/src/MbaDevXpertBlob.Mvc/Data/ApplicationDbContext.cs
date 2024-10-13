@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace MbaDevXpertBlob.Mvc.Data
+namespace MbaDevXpertBlog.Mvc.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
