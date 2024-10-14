@@ -66,20 +66,21 @@ A estrutura do projeto é organizada da seguinte forma:
 ### **Passos para Execução**
 
 1. **Clone o Repositório:**
-   - `git clone https://github.com/seu-usuario/nome-do-repositorio.git`
+   - `git clone https://github.com/Fvvmotta/mba-devxpert-blog.git`
    - `cd nome-do-repositorio`
 
 2. **Configuração do Banco de Dados:**
    - No arquivo `appsettings.json`, configure a string de conexão do SQL Server.
-   - Rode o projeto para que a configuração do Seed crie o banco e popule com os dados básicos
+   - Rode o projeto MVC para que a configuração do Seed crie o banco e popule com os dados básicos
+   - Login: teste@teste.com Senha: Teste@123
 
 3. **Executar a Aplicação MVC:**
-   - `cd src/Blog.Mvc/`
+   - `cd src/MbaDevXpertBlog.Mvc/`
    - `dotnet run`
    - Acesse a aplicação em: http://localhost:5000
 
 4. **Executar a API:**
-   - `cd src/Blog.Api/`
+   - `cd src/MbaDevXpertBlog.Api/`
    - `dotnet run`
    - Acesse a documentação da API em: http://localhost:5001/swagger
 

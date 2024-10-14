@@ -65,8 +65,8 @@ namespace MbaDevXpertBlog.Api.Controllers
         }
 
         // GET: api/comentarios/{id}
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<ComentarioViewModel>> GetComentarioById(int id)
+        [HttpGet("{id:Guid}")]
+        public async Task<ActionResult<ComentarioViewModel>> GetComentarioById(Guid id)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));
@@ -105,8 +105,8 @@ namespace MbaDevXpertBlog.Api.Controllers
         }
 
         // PUT: api/comentarios/editar/{id}
-        [HttpPut("editar/{id:int}")]
-        public async Task<ActionResult> EditComentario(int id, ComentarioViewModel comentarioViewModel)
+        [HttpPut("editar/{id:Guid}")]
+        public async Task<ActionResult> EditComentario(Guid id, ComentarioViewModel comentarioViewModel)
         {
             if (id != comentarioViewModel.Id)
             {
@@ -138,8 +138,8 @@ namespace MbaDevXpertBlog.Api.Controllers
         }
 
         // DELETE: api/comentarios/excluir/{id}
-        [HttpDelete("excluir/{id:int}")]
-        public async Task<ActionResult> DeleteComentario(int id)
+        [HttpDelete("excluir/{id:Guid}")]
+        public async Task<ActionResult> DeleteComentario(Guid id)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));

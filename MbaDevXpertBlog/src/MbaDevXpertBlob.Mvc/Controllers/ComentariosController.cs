@@ -51,8 +51,8 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             var comentarios = await _comentarioRepository.GetCommentByAuthorId(autor.Id);
             return View(_mapper.Map<IEnumerable<ComentarioViewModel>>(comentarios));
         }
-        [Route("{id:int}/detalhes")]
-        public async Task<ActionResult> Details(int id)
+        [Route("{id:Guid}/detalhes")]
+        public async Task<ActionResult> Details(Guid id)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));
@@ -65,7 +65,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
 
         [HttpPost("novo")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(int postId, ComentarioViewModel comentarioViewModel)
+        public async Task<ActionResult> Create(Guid postId, ComentarioViewModel comentarioViewModel)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var autorId = await _autorRepository.GetByIdentityId(userId);
@@ -79,8 +79,8 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             return View(comentarioViewModel);
         }
 
-        [Route("editar/{id:int}")]
-        public async Task<ActionResult> Edit(int id)
+        [Route("editar/{id:Guid}")]
+        public async Task<ActionResult> Edit(Guid id)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));
@@ -95,9 +95,9 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             return View(comentario);
         }
 
-        [HttpPost("editar/{id:int}")]
+        [HttpPost("editar/{id:Guid}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ComentarioViewModel comentarioViewModel)
+        public async Task<IActionResult> Edit(Guid id, ComentarioViewModel comentarioViewModel)
         {
             if (id != comentarioViewModel.Id)
             {
@@ -127,8 +127,8 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             return View(comentarioViewModel);
         }
 
-        [Route("excluir/{id:int}")]
-        public async Task<ActionResult> Delete(int id)
+        [Route("excluir/{id:Guid}")]
+        public async Task<ActionResult> Delete(Guid id)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));
@@ -139,10 +139,10 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             return View(comentario);
         }
 
-        [HttpPost("excluir/{id:int}")]
+        [HttpPost("excluir/{id:Guid}")]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(Guid id, IFormCollection collection)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));

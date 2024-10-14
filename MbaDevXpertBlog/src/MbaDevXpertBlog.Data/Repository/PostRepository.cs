@@ -18,14 +18,14 @@ namespace MbaDevXpertBlog.Data.Repository
                    .ToListAsync();
         }
 
-        public async Task<IEnumerable<Post>> GetAllPostsByAuthorId(int id)
+        public async Task<IEnumerable<Post>> GetAllPostsByAuthorId(Guid id)
         {
             return await Db.Posts.AsNoTracking()
                    .Where(p => p.AutorId == id)
                    .ToListAsync();
         }
 
-        public async Task<Post> GetPostAuthorCommentsById(int id)
+        public async Task<Post> GetPostAuthorCommentsById(Guid id)
         {
             return await Db.Posts.AsNoTracking()
                     .Include(p => p.Autor)

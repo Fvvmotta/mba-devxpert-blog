@@ -21,7 +21,7 @@ namespace MbaDevXpertBlog.Data.Repository
             var result = await DbSet.AsNoTracking().Where(predicate).ToListAsync();
             return result;
         }
-        public virtual async Task<TEntity> GetById(int id)
+        public virtual async Task<TEntity> GetById(Guid id)
         {
             return await DbSet.FindAsync(id);
         }
@@ -46,7 +46,7 @@ namespace MbaDevXpertBlog.Data.Repository
             var update = DbSet.Update(entity);
             await SaveChanges();
         }
-        public virtual async Task Delete(int id)
+        public virtual async Task Delete(Guid id)
         {
             DbSet.Remove(new TEntity { Id = id });
             await SaveChanges();

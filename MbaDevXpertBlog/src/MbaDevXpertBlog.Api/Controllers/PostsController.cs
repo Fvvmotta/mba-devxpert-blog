@@ -62,9 +62,9 @@ namespace MbaDevXpertBlog.Api.Controllers
         }
 
         // GET: api/posts/{id}
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:Guid}")]
         [AllowAnonymous]
-        public async Task<ActionResult<PostDetailsViewModel>> GetPostDetails(int id)
+        public async Task<ActionResult<PostDetailsViewModel>> GetPostDetails(Guid id)
         {
             var post = _mapper.Map<PostViewModel>(await _postRepository.GetPostAuthorCommentsById(id));
             if (post == null)
@@ -106,9 +106,9 @@ namespace MbaDevXpertBlog.Api.Controllers
         }
 
         // PUT: api/posts/{id}
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:Guid}")]
         [Authorize]
-        public async Task<IActionResult> EditPost(int id, [FromBody] PostViewModel postViewModel)
+        public async Task<IActionResult> EditPost(Guid id, [FromBody] PostViewModel postViewModel)
         {
             if (id != postViewModel.Id)
             {
@@ -139,9 +139,9 @@ namespace MbaDevXpertBlog.Api.Controllers
         }
 
         // DELETE: api/posts/{id}
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id:Guid}")]
         [Authorize]
-        public async Task<IActionResult> DeletePost(int id)
+        public async Task<IActionResult> DeletePost(Guid id)
         {
             var post = _mapper.Map<PostViewModel>(await _postRepository.GetPostAuthorCommentsById(id));
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

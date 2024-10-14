@@ -4,19 +4,16 @@ using MbaDevXpertBlog.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MbaDevXpertBlog.Data.Migrations
+namespace MbaDevXpertBlog.Data.Migrations.MbaDevXpertBlogDb
 {
     [DbContext(typeof(MbaDevXpertBlogDbContext))]
-    [Migration("20241011185141_FirstMigration")]
-    partial class FirstMigration
+    partial class MbaDevXpertBlogDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,11 +24,9 @@ namespace MbaDevXpertBlog.Data.Migrations
 
             modelBuilder.Entity("MbaDevXpertBlog.Data.Models.Autor", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -53,14 +48,12 @@ namespace MbaDevXpertBlog.Data.Migrations
 
             modelBuilder.Entity("MbaDevXpertBlog.Data.Models.Comentario", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AutorId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("AutorId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Conteudo")
                         .IsRequired()
@@ -69,26 +62,26 @@ namespace MbaDevXpertBlog.Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AutorId");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("Comentarios", (string)null);
                 });
 
             modelBuilder.Entity("MbaDevXpertBlog.Data.Models.Post", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AutorId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("AutorId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Conteudo")
                         .IsRequired()
@@ -115,6 +108,11 @@ namespace MbaDevXpertBlog.Data.Migrations
                         .HasForeignKey("AutorId")
                         .IsRequired();
 
+                    b.HasOne("MbaDevXpertBlog.Data.Models.Post", null)
+                        .WithMany("Comentarios")
+                        .HasForeignKey("PostId")
+                        .IsRequired();
+
                     b.Navigation("Autor");
                 });
 
@@ -133,6 +131,11 @@ namespace MbaDevXpertBlog.Data.Migrations
                     b.Navigation("Comentarios");
 
                     b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("MbaDevXpertBlog.Data.Models.Post", b =>
+                {
+                    b.Navigation("Comentarios");
                 });
 #pragma warning restore 612, 618
         }

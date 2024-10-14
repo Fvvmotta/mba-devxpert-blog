@@ -8,8 +8,8 @@ namespace MbaDevXpertBlog.Data.Models
 {
     public class Comentario : Entity
     {
-        public int PostId { get; set; }
-        public int AutorId { get; set; }
+        public Guid PostId { get; set; }
+        public Guid AutorId { get; set; }
         public string Conteudo { get; set; }
         public DateTime DateCreated { get; set; }
 

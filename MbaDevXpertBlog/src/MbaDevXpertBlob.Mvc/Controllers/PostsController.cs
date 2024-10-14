@@ -54,8 +54,8 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             return View(_mapper.Map<IEnumerable<PostViewModel>>(await _postRepository.GetAllPostsByAuthorId(autor.Id)));
         }
         [AllowAnonymous]
-        [Route("{id:int}/detalhes")]
-        public async Task<ActionResult> Details(int id)
+        [Route("{id:Guid}/detalhes")]
+        public async Task<ActionResult> Details(Guid id)
         {
             var post = _mapper.Map<PostViewModel>(await _postRepository.GetPostAuthorCommentsById(id));
             if (post == null)
@@ -90,8 +90,8 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             }
             return View(postViewModel);
         }
-        [Route("editar/{id:int}")]
-        public async Task<ActionResult> Edit(int id)
+        [Route("editar/{id:Guid}")]
+        public async Task<ActionResult> Edit(Guid id)
         {
             var post = _mapper.Map<PostViewModel>(await _postRepository.GetPostAuthorCommentsById(id));
             var userId = Guid.Parse(User.Identity.GetUserId());
@@ -105,9 +105,9 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             }
             return View(post);
         }
-        [HttpPost("editar/{id:int}")]
+        [HttpPost("editar/{id:Guid}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, PostViewModel postViewModel)
+        public async Task<IActionResult> Edit(Guid id, PostViewModel postViewModel)
         {
             if (id != postViewModel.Id)
             {
@@ -137,8 +137,8 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             return View(postViewModel);
         }
 
-        [Route("excluir/{id:int}")]
-        public async Task<IActionResult> Delete(int id)
+        [Route("excluir/{id:Guid}")]
+        public async Task<IActionResult> Delete(Guid id)
         {
             var post = _mapper.Map<PostViewModel>(await _postRepository.GetPostAuthorCommentsById(id));
             var userId = Guid.Parse(User.Identity.GetUserId());
@@ -149,10 +149,10 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             return View(post);
         }
 
-        [HttpPost("excluir/{id:int}")]
+        [HttpPost("excluir/{id:Guid}")]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var post = _mapper.Map<PostViewModel>(await _postRepository.GetPostAuthorCommentsById(id));
             var userId = Guid.Parse(User.Identity.GetUserId());

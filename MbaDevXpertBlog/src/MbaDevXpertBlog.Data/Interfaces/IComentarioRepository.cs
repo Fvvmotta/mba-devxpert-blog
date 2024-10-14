@@ -9,8 +9,8 @@ namespace MbaDevXpertBlog.Data.Interfaces
 {
     public interface IComentarioRepository : IRepository<Comentario>
     {
-        Task<Comentario> GetCommentAuthorById(int id);
-        Task<IEnumerable<Comentario>> GetCommentAuthorByPostId(int id);
-        Task<IEnumerable<Comentario>> GetCommentByAuthorId(int id);
+        Task<Comentario> GetCommentAuthorById(Guid id);
+        Task<IEnumerable<Comentario>> GetCommentAuthorByPostId(Guid id);
+        Task<IEnumerable<Comentario>> GetCommentByAuthorId(Guid id);
     }
 }

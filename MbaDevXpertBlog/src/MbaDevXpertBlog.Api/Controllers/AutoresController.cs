@@ -47,8 +47,8 @@ namespace MbaDevXpertBlog.Api.Controllers
         }
 
         // GET: api/autores/{id}
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<AutorViewModel>> GetAutor(int id)
+        [HttpGet("{id:Guid}")]
+        public async Task<ActionResult<AutorViewModel>> GetAutor(Guid id)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
@@ -86,8 +86,8 @@ namespace MbaDevXpertBlog.Api.Controllers
         }
 
         // PUT: api/autores/{id}
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> EditAutor(int id, AutorViewModel autorViewModel)
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> EditAutor(Guid id, AutorViewModel autorViewModel)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
@@ -120,8 +120,8 @@ namespace MbaDevXpertBlog.Api.Controllers
         }
 
         // DELETE: api/autores/{id}
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteAutor(int id)
+        [HttpDelete("{id:Guid}")]
+        public async Task<IActionResult> DeleteAutor(Guid id)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userId)) return Unauthorized();

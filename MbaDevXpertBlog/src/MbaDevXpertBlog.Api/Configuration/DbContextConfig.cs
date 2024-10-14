@@ -19,6 +19,7 @@ namespace MbaDevXpertBlog.Api.Configuration
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             return builder;
         }

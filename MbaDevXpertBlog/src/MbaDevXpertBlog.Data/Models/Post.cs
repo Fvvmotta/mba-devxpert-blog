@@ -8,7 +8,7 @@ namespace MbaDevXpertBlog.Data.Models
 {
     public class Post : Entity
     {
-        public int AutorId { get; set; }
+        public Guid AutorId { get; set; }
         public string Titulo { get; set; }
         public string Conteudo { get; set; }
         public DateTime DateCreated { get; set; }

@@ -37,8 +37,8 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             var userId = Guid.Parse(User.Identity.GetUserId());
             return View(_mapper.Map<IEnumerable<AutorViewModel>>(await _autorRepository.GetAllWhereUserId(userId)));
         }
-        [Route("{id:int}/detalhes")]
-        public async Task<ActionResult> Details(int id)
+        [Route("{id:Guid}/detalhes")]
+        public async Task<ActionResult> Details(Guid id)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));
@@ -75,7 +75,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             return View(autorViewModel);
         }
         [Route("editar/{id:int}")]
-        public async Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Edit(Guid id)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));
@@ -86,9 +86,9 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             }
             return View(autor);
         }
-        [HttpPost("editar/{id:int}")]
+        [HttpPost("editar/{id:Guid}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, AutorViewModel autorViewModel)
+        public async Task<IActionResult> Edit(Guid id, AutorViewModel autorViewModel)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));
@@ -119,8 +119,8 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             return View(autorViewModel);
         }
 
-        [Route("excluir/{id:int}")]
-        public async Task<IActionResult> Delete(int id)
+        [Route("excluir/{id:Guid}")]
+        public async Task<IActionResult> Delete(Guid id)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));
@@ -131,10 +131,10 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             return View(autor);
         }
 
-        [HttpPost("excluir/{id:int}")]
+        [HttpPost("excluir/{id:Guid}")]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));

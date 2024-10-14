@@ -1,12 +1,8 @@
-using AutoMapper;
-using Elfie.Serialization;
 using MbaDevXpertBlog.Data.Data;
-using MbaDevXpertBlog.Mvc.Configuration;
-using MbaDevXpertBlog.Mvc.ViewModels;
 using MbaDevXpertBlog.Data.Context;
-using MbaDevXpertBlog.Data.Models;
 using MbaDevXpertBlog.Data.Interfaces;
 using MbaDevXpertBlog.Data.Repository;
+using MbaDevXpertBlog.Mvc.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
@@ -14,26 +10,15 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
-//Identity DBContext Config
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-//Blog DBContext Config
-builder.Services.AddDbContext<MbaDevXpertBlogDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
+builder.AddDatabaseSelector();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+        .AddRoles<IdentityRole>()
+        .AddEntityFrameworkStores<ApplicationDbContext>()
+        .AddDefaultUI()
+        .AddDefaultTokenProviders();
 
-//Automapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-//new MapperConfiguration(cfg => cfg.CreateMap<Post, AutorViewModel>());
 
 builder.Services.AddMvc(o =>
 {
@@ -61,6 +46,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseMigrationsEndPoint();
 }
 else
@@ -80,4 +66,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
+app.UseDbMigrationHelper();
 app.Run();

@@ -7,9 +7,9 @@ namespace MbaDevXpertBlog.Api.ViewModels
     public class PostViewModel
     {
         [Key]
-        public int? Id { get; set; }
+        public Guid? Id { get; set; }
         [Required]
-        public int AutorId { get; set; }
+        public Guid AutorId { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [Display(Name = "Título")]
         public string Titulo { get; set; }

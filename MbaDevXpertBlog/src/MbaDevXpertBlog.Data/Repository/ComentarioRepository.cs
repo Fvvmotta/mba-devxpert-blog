@@ -11,20 +11,20 @@ namespace MbaDevXpertBlog.Data.Repository
         public ComentarioRepository(MbaDevXpertBlogDbContext db) : base(db)
         {
         }
-        public async Task<Comentario> GetCommentAuthorById(int id)
+        public async Task<Comentario> GetCommentAuthorById(Guid id)
         {
             return await Db.Comentarios.AsNoTracking()
                     .Include(p => p.Autor)
                     .FirstAsync();
         }
-        public async Task<IEnumerable<Comentario>> GetCommentAuthorByPostId(int id)
+        public async Task<IEnumerable<Comentario>> GetCommentAuthorByPostId(Guid id)
         {
             return await Db.Comentarios.AsNoTracking()
                     .Include(p => p.Autor)
                     .Where(p => p.PostId == id)
                     .ToListAsync();
         }
-        public async Task<IEnumerable<Comentario>> GetCommentByAuthorId(int id)
+        public async Task<IEnumerable<Comentario>> GetCommentByAuthorId(Guid id)
         {
             return await Db.Comentarios.AsNoTracking()
                     .Include(p => p.Autor)
