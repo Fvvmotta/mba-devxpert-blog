@@ -54,7 +54,7 @@ namespace MbaDevXpertBlog.Api.Controllers
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
 
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));
-            if (autor == null || (Guid.Parse(userId) != autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (autor == null || (Guid.Parse(userId) != autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -69,8 +69,8 @@ namespace MbaDevXpertBlog.Api.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
 
-            autorViewModel.IdentityUserId = Guid.Parse(userId);
-            var autorExists = await _autorRepository.Search(u => u.IdentityUserId == Guid.Parse(userId));
+            autorViewModel.Id = Guid.Parse(userId);
+            var autorExists = await _autorRepository.Search(u => u.Id == Guid.Parse(userId));
             if (autorExists.Any())
             {
                 return BadRequest("Seu usuário já possui um autor cadastrado.");
@@ -93,7 +93,7 @@ namespace MbaDevXpertBlog.Api.Controllers
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
 
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));
-            if (autor == null || (Guid.Parse(userId) != autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (autor == null || (Guid.Parse(userId) != autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -127,7 +127,7 @@ namespace MbaDevXpertBlog.Api.Controllers
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
 
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));
-            if (autor == null || (Guid.Parse(userId) != autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (autor == null || (Guid.Parse(userId) != autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }

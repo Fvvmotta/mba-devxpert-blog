@@ -54,7 +54,7 @@ namespace MbaDevXpertBlog.Api.Controllers
                 return Unauthorized();
             }
 
-            var autor = await _autorRepository.GetByIdentityId(Guid.Parse(userId));
+            var autor = await _autorRepository.GetById(Guid.Parse(userId));
             if (autor == null)
             {
                 return BadRequest("É necessário criar um autor antes de ver seus comentários.");
@@ -70,7 +70,7 @@ namespace MbaDevXpertBlog.Api.Controllers
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));
-            if (comentario == null || (Guid.Parse(userId) != comentario.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (comentario == null || (Guid.Parse(userId) != comentario.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -83,7 +83,7 @@ namespace MbaDevXpertBlog.Api.Controllers
         public async Task<ActionResult<ComentarioViewModel>> CreateComentario(ComentarioViewModel comentarioViewModel)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var autorId = await _autorRepository.GetByIdentityId(Guid.Parse(userId));
+            var autorId = await _autorRepository.GetById(Guid.Parse(userId));
 
             if (autorId == null)
             {
@@ -115,7 +115,7 @@ namespace MbaDevXpertBlog.Api.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));
 
-            if (comentario == null || (Guid.Parse(userId) != comentario.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (comentario == null || (Guid.Parse(userId) != comentario.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -144,7 +144,7 @@ namespace MbaDevXpertBlog.Api.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));
 
-            if (comentario == null || (Guid.Parse(userId) != comentario.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (comentario == null || (Guid.Parse(userId) != comentario.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }

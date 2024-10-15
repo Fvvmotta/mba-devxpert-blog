@@ -9,7 +9,6 @@ namespace MbaDevXpertBlog.Api.ViewModels
     public class AutorViewModel
     {
         public Guid? Id { get; set; }
-        public Guid? IdentityUserId { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [Display(Name = "Nome")]
         public string Nome { get; set; }

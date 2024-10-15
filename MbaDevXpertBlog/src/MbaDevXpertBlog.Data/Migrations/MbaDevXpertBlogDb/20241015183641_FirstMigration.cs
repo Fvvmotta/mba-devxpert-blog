@@ -15,11 +15,10 @@ namespace MbaDevXpertBlog.Data.Migrations.MbaDevXpertBlogDb
                 name: "Autores",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdentityUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Nome = table.Column<string>(type: "varchar(150)", nullable: false),
                     Email = table.Column<string>(type: "varchar(100)", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,11 +29,11 @@ namespace MbaDevXpertBlog.Data.Migrations.MbaDevXpertBlogDb
                 name: "Posts",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AutorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    AutorId = table.Column<Guid>(type: "TEXT", nullable: false),
                     Titulo = table.Column<string>(type: "varchar(100)", nullable: false),
                     Conteudo = table.Column<string>(type: "varchar(2000)", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,11 +49,11 @@ namespace MbaDevXpertBlog.Data.Migrations.MbaDevXpertBlogDb
                 name: "Comentarios",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AutorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    PostId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    AutorId = table.Column<Guid>(type: "TEXT", nullable: false),
                     Conteudo = table.Column<string>(type: "varchar(250)", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

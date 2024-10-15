@@ -45,7 +45,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         public async Task<ActionResult> Index()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var autor = await _autorRepository.GetByIdentityId(userId);
+            var autor = await _autorRepository.GetById(userId);
             if (autor == null)
             {
                 TempData["Error"] = "É necessário criar um autor antes de ver seus posts.";
@@ -80,7 +80,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         public async Task<ActionResult> Create(PostViewModel postViewModel)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var autorId = await _autorRepository.GetByIdentityId(userId);
+            var autorId = await _autorRepository.GetById(userId);
             if (ModelState.IsValid)
             {
                 postViewModel.AutorId = autorId.Id;
@@ -95,7 +95,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         {
             var post = _mapper.Map<PostViewModel>(await _postRepository.GetPostAuthorCommentsById(id));
             var userId = Guid.Parse(User.Identity.GetUserId());
-            if (post == null || (userId != post.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (post == null || (userId != post.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -115,7 +115,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             }
             var post = _mapper.Map<PostViewModel>(await _postRepository.GetPostAuthorCommentsById(id));
             var userId = Guid.Parse(User.Identity.GetUserId());
-            if (post == null || (userId != post.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (post == null || (userId != post.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -142,7 +142,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         {
             var post = _mapper.Map<PostViewModel>(await _postRepository.GetPostAuthorCommentsById(id));
             var userId = Guid.Parse(User.Identity.GetUserId());
-            if (post == null || (userId != post.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (post == null || (userId != post.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -156,7 +156,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         {
             var post = _mapper.Map<PostViewModel>(await _postRepository.GetPostAuthorCommentsById(id));
             var userId = Guid.Parse(User.Identity.GetUserId());
-            if (post == null || (userId != post.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (post == null || (userId != post.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }

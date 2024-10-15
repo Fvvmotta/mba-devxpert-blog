@@ -1,5 +1,6 @@
 ﻿using MbaDevXpertBlog.Data.Context;
 using MbaDevXpertBlog.Data.Data;
+using MbaDevXpertBlog.Data.Extensions;
 using MbaDevXpertBlog.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -43,8 +44,8 @@ namespace MbaDevXpertBlog.Mvc.Configuration
         {
             if (contextId.Users.Any())
                 return;
-            var userId = Guid.NewGuid().ToString();
-            await contextId.Users.AddAsync(new IdentityUser
+            var userId = Guid.NewGuid();
+            await contextId.Users.AddAsync(new ApplicationUser
             {
                 Id = userId,
                 UserName = "teste@teste.com",
@@ -64,11 +65,9 @@ namespace MbaDevXpertBlog.Mvc.Configuration
 
             if (context.Autores.Any())
                 return;
-            var autorId = Guid.NewGuid();
             await context.Autores.AddAsync(new Autor
             {
-                Id = autorId,
-                IdentityUserId = Guid.Parse(userId),
+                Id = userId,
                 Nome = "Eduardo Pires",
                 Email = "eduardo@desenvolvedor.io"
             }) ;
@@ -78,7 +77,7 @@ namespace MbaDevXpertBlog.Mvc.Configuration
             await context.Posts.AddAsync(new Post()
             {
                 Id = postIdOne,
-                AutorId = autorId,
+                AutorId = userId,
                 Titulo = "Meu Primeiro Post no Blog",
                 Conteudo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dui quis nisi vehicula, id finibus leo hendrerit. Ut nulla metus, iaculis in augue quis, pharetra scelerisque tortor. Sed egestas mollis finibus. Etiam eget felis eget nunc venenatis tincidunt eget vitae sem. Maecenas faucibus nunc eu orci fermentum, quis gravida turpis rhoncus. Nunc magna libero, hendrerit quis lorem blandit, congue auctor nisi. Pellentesque lobortis tincidunt tellus, eget aliquet quam bibendum vel."
             }); 
@@ -88,7 +87,7 @@ namespace MbaDevXpertBlog.Mvc.Configuration
             await context.Posts.AddAsync(new Post()
             {
                 Id = postIdOTwo,
-                AutorId = autorId,
+                AutorId = userId,
                 Titulo = "Meu Segundo Post no Blog",
                 Conteudo = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dui quis nisi vehicula, id finibus leo hendrerit. Ut nulla metus, iaculis in augue quis, pharetra scelerisque tortor. Sed egestas mollis finibus. Etiam eget felis eget nunc venenatis tincidunt eget vitae sem. Maecenas faucibus nunc eu orci fermentum, quis gravida turpis rhoncus. Nunc magna libero, hendrerit quis lorem blandit, congue auctor nisi. Pellentesque lobortis tincidunt tellus, eget aliquet quam bibendum vel."
             });
@@ -100,7 +99,7 @@ namespace MbaDevXpertBlog.Mvc.Configuration
             {
                 Id = comentarioIdOne,
                 PostId = postIdOne,
-                AutorId = autorId,
+                AutorId = userId,
                 Conteudo = "Esse post está bem bacana."
             });
             await context.SaveChangesAsync();
@@ -110,7 +109,7 @@ namespace MbaDevXpertBlog.Mvc.Configuration
             {
                 Id = comentarioIdTwo,
                 PostId = postIdOne,
-                AutorId = autorId,
+                AutorId = userId,
                 Conteudo = "Sensacional!"
             });
             await context.SaveChangesAsync();

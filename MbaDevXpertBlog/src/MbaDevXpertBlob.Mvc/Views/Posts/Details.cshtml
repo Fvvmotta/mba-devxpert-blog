@@ -42,7 +42,7 @@
         @{
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         }
-        @if (User.IsInRole("Admin") || userId == Model?.PostViewModel?.Autor?.IdentityUserId.ToString())
+        @if (User.IsInRole("Admin") || userId == Model?.PostViewModel?.Autor?.Id.ToString())
         {
             <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.PostViewModel.Id">Editar</a>
         }

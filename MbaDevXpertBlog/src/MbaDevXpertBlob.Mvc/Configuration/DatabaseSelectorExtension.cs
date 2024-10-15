@@ -1,5 +1,7 @@
 ﻿using MbaDevXpertBlog.Data.Context;
 using MbaDevXpertBlog.Data.Data;
+using MbaDevXpertBlog.Data.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace MbaDevXpertBlog.Mvc.Configuration
@@ -10,6 +12,9 @@ namespace MbaDevXpertBlog.Mvc.Configuration
         {
             if (builder.Environment.IsDevelopment())
             {
+                builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options => options.SignIn.RequireConfirmedAccount = false)
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
                 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnectionLite")));
 
@@ -19,6 +24,9 @@ namespace MbaDevXpertBlog.Mvc.Configuration
             }
             else
             {
+                builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options => options.SignIn.RequireConfirmedAccount = false)
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
                 builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

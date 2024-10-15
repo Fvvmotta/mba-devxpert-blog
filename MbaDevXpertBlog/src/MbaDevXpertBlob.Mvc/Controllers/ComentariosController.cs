@@ -42,7 +42,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         public async Task<ActionResult> Index()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var autor = await _autorRepository.GetByIdentityId(userId);
+            var autor = await _autorRepository.GetById(userId);
             if (autor == null)
             {
                 TempData["Error"] = "É necessário criar um autor antes de ver seus os comentários.";
@@ -56,7 +56,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));
-            if (comentario == null || (userId != comentario.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (comentario == null || (userId != comentario.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -68,7 +68,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         public async Task<ActionResult> Create(Guid postId, ComentarioViewModel comentarioViewModel)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            var autorId = await _autorRepository.GetByIdentityId(userId);
+            var autorId = await _autorRepository.GetById(userId);
             if (ModelState.IsValid)
             {
                 comentarioViewModel.AutorId = autorId.Id;
@@ -84,7 +84,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));
-            if (comentario == null || (userId != comentario.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (comentario == null || (userId != comentario.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -105,7 +105,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             }
             var userId = Guid.Parse(User.Identity.GetUserId());
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));
-            if (comentario == null || (userId != comentario.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (comentario == null || (userId != comentario.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -132,7 +132,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));
-            if (comentario == null || (userId != comentario.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (comentario == null || (userId != comentario.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -146,7 +146,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var comentario = _mapper.Map<ComentarioViewModel>(await _comentarioRepository.GetCommentAuthorById(id));
-            if (comentario == null || (userId != comentario.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (comentario == null || (userId != comentario.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }

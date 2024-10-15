@@ -42,7 +42,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));
-            if (autor == null || (userId != autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (autor == null || (userId != autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -59,8 +59,8 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         public async Task<ActionResult> Create(AutorViewModel autorViewModel)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            autorViewModel.IdentityUserId = userId;
-            var autorExiste = await _autorRepository.Search(u => u.IdentityUserId == userId);
+            autorViewModel.Id = userId;
+            var autorExiste = await _autorRepository.Search(u => u.Id == userId);
             if (autorExiste.Count() > 0)
             {
                 TempData["Error"] = "Seu usuário já possui um autor cadastrado.";
@@ -80,7 +80,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             var userId = Guid.Parse(User.Identity.GetUserId());
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));
 
-            if (autor == null || (userId != autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (autor == null || (userId != autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -92,7 +92,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));
-            if (autor == null || (userId != autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (autor == null || (userId != autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -124,7 +124,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));
-            if (autor == null || (userId != autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (autor == null || (userId != autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -138,7 +138,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var autor = _mapper.Map<AutorViewModel>(await _autorRepository.GetById(id));
-            if (autor == null || (userId != autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (autor == null || (userId != autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }

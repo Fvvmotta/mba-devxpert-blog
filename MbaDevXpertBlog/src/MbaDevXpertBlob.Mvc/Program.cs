@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using MbaDevXpertBlog.Data.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddDatabaseSelector();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-        .AddRoles<IdentityRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext>()
-        .AddDefaultUI()
-        .AddDefaultTokenProviders();
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//        .AddRoles<IdentityRole>()
+//        .AddEntityFrameworkStores<ApplicationDbContext>()
+//        .AddDefaultUI()
+//        .AddDefaultTokenProviders();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

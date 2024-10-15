@@ -51,7 +51,7 @@ namespace MbaDevXpertBlog.Api.Controllers
                 return Unauthorized();
             }
 
-            var autor = await _autorRepository.GetByIdentityId(Guid.Parse(userId));
+            var autor = await _autorRepository.GetById(Guid.Parse(userId));
             if (autor == null)
             {
                 return BadRequest("É necessário criar um autor antes de ver seus posts.");
@@ -98,7 +98,7 @@ namespace MbaDevXpertBlog.Api.Controllers
                 return Unauthorized();
             }
 
-            var autorId = await _autorRepository.GetByIdentityId(Guid.Parse(userId));
+            var autorId = await _autorRepository.GetById(Guid.Parse(userId));
             postViewModel.AutorId = autorId.Id;
 
             await _postRepository.Add(_mapper.Map<Post>(postViewModel));
@@ -117,7 +117,7 @@ namespace MbaDevXpertBlog.Api.Controllers
 
             var post = _mapper.Map<PostViewModel>(await _postRepository.GetPostAuthorCommentsById(id));
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (post == null || (Guid.Parse(userId) != post.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (post == null || (Guid.Parse(userId) != post.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }
@@ -146,7 +146,7 @@ namespace MbaDevXpertBlog.Api.Controllers
             var post = _mapper.Map<PostViewModel>(await _postRepository.GetPostAuthorCommentsById(id));
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (post == null || (Guid.Parse(userId) != post.Autor.IdentityUserId && !User.IsInRole("Admin")))
+            if (post == null || (Guid.Parse(userId) != post.Autor.Id && !User.IsInRole("Admin")))
             {
                 return NotFound();
             }

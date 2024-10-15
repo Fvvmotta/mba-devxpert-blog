@@ -14,14 +14,9 @@ namespace MbaDevXpertBlog.Data.Repository
         public async Task<IEnumerable<Autor>> GetAllWhereUserId(Guid id)
         {
             return await Db.Autores.AsNoTracking()
-                   .Where(a => a.IdentityUserId == id)
+                   .Where(a => a.Id == id)
                    .ToListAsync();
         }
 
-        public async Task<Autor> GetByIdentityId(Guid id)
-        {
-            return await Db.Autores.AsNoTracking()
-                .FirstOrDefaultAsync(a => a.IdentityUserId == id);
-        }
     }
 }
