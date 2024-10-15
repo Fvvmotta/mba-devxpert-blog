@@ -74,7 +74,7 @@ namespace MbaDevXpertBlog.Mvc.Controllers
             }
             return View(autorViewModel);
         }
-        [Route("editar/{id:int}")]
+        [Route("editar/{id:guid}")]
         public async Task<ActionResult> Edit(Guid id)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());

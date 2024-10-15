@@ -13,13 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddDatabaseSelector();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//        .AddRoles<IdentityRole>()
-//        .AddEntityFrameworkStores<ApplicationDbContext>()
-//        .AddDefaultUI()
-//        .AddDefaultTokenProviders();
-
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddMvc(o =>
