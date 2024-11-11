@@ -72,7 +72,8 @@ A estrutura do projeto é organizada da seguinte forma:
 2. **Configuração do Banco de Dados:**
    - No arquivo `appsettings.json`, configure a string de conexão do SQL Server.
    - Rode o projeto MVC para que a configuração do Seed crie o banco e popule com os dados básicos
-   - Login: teste@teste.com Senha: Teste@123
+   - Admin Login: admin@teste.com Senha: Admin@123
+   - User Login: teste@teste.com Senha: Teste@123
 
 3. **Executar a Aplicação MVC:**
    - `cd src/MbaDevXpertBlog.Mvc/`

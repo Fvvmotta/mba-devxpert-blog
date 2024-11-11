@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
-namespace MbaDevXpertBlog.Mvc.Configuration
+namespace MbaDevXpertBlog.Api.Configuration
 {
     public static class DbMigrationHelperExtension
     {

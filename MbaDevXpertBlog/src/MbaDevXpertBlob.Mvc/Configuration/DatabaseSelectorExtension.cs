@@ -12,7 +12,7 @@ namespace MbaDevXpertBlog.Mvc.Configuration
         {
             if (builder.Environment.IsDevelopment())
             {
-                builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options => options.SignIn.RequireConfirmedAccount = false)
+                builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = false)
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
                 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -24,7 +24,7 @@ namespace MbaDevXpertBlog.Mvc.Configuration
             }
             else
             {
-                builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options => options.SignIn.RequireConfirmedAccount = false)
+                builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.SignIn.RequireConfirmedAccount = false)
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
                 builder.Services.AddDbContext<ApplicationDbContext>(options =>

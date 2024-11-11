@@ -1,4 +1,5 @@
 ﻿using MbaDevXpertBlog.Data.Data;
+using MbaDevXpertBlog.Data.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -11,9 +12,9 @@ namespace MbaDevXpertBlog.Api.Configuration
     {
         public static WebApplicationBuilder AddIdentityConfig(this WebApplicationBuilder builder)
         {
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            /*builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();*/
 
             // Pegando o Token e gerando a chave encodada
             var JwtSettingsSection = builder.Configuration.GetSection("JwtSettings");
